@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="643" height="606.221" viewBox="0 0 643 606.221" preserveAspectRatio="none">
+  <g id="area-urbana" transform="translate(8494 23222.221)">
+    <rect id="Rectangle_14653" data-name="Rectangle 14653" width="643" height="99" transform="translate(-8494 -22715)" fill="none"/>
+    <g id="Group_13697" data-name="Group 13697" transform="translate(-8634 -28220.869)">
+      <path id="Path_18880" data-name="Path 18880" d="M0,0H134.84V450.755H0Z" transform="translate(140 4998.648)" fill="#797979"/>
+      <rect id="Rectangle_14006" data-name="Rectangle 14006" width="36.026" height="62.54" transform="translate(164.703 5182.267)" fill="#fff"/>
+      <rect id="Rectangle_14023" data-name="Rectangle 14023" width="36.026" height="62.54" transform="translate(164.703 5106.326)" fill="#fff"/>
+      <rect id="Rectangle_14028" data-name="Rectangle 14028" width="36.026" height="62.54" transform="translate(164.703 5030.385)" fill="#fff"/>
+      <rect id="Rectangle_14009" data-name="Rectangle 14009" width="36.026" height="63.434" transform="translate(164.703 5258.21)" fill="#fff"/>
+      <rect id="Rectangle_14011" data-name="Rectangle 14011" width="36.026" height="62.54" transform="translate(164.703 5335.045)" fill="#fff"/>
+      <rect id="Rectangle_14007" data-name="Rectangle 14007" width="39.114" height="62.54" transform="translate(214.111 5182.267)" fill="#fff"/>
+      <rect id="Rectangle_14024" data-name="Rectangle 14024" width="39.114" height="62.54" transform="translate(214.111 5106.326)" fill="#fff"/>
+      <rect id="Rectangle_14027" data-name="Rectangle 14027" width="39.114" height="62.54" transform="translate(214.111 5030.385)" fill="#fff"/>
+      <rect id="Rectangle_14008" data-name="Rectangle 14008" width="39.114" height="63.434" transform="translate(214.111 5258.21)" fill="#fff"/>
+      <g id="Group_12583" data-name="Group 12583" transform="translate(273.92 5180.456)">
+        <path id="Path_18923" data-name="Path 18923" d="M0,0H144.1V268.949H0Z" fill="#797979"/>
+        <rect id="Rectangle_14012" data-name="Rectangle 14012" width="37.055" height="32.164" transform="translate(27.792 184.965)" fill="#fff"/>
+        <rect id="Rectangle_14015" data-name="Rectangle 14015" width="37.055" height="32.164" transform="translate(27.792 137.613)" fill="#fff"/>
+        <rect id="Rectangle_14031" data-name="Rectangle 14031" width="37.055" height="32.164" transform="translate(27.792 42.912)" fill="#fff"/>
+        <rect id="Rectangle_14025" data-name="Rectangle 14025" width="37.055" height="32.164" transform="translate(27.792 90.262)" fill="#fff"/>
+        <rect id="Rectangle_14013" data-name="Rectangle 14013" width="37.055" height="32.164" transform="translate(79.257 184.965)" fill="#fff"/>
+        <rect id="Rectangle_14016" data-name="Rectangle 14016" width="37.055" height="32.164" transform="translate(79.257 137.613)" fill="#fff"/>
+        <rect id="Rectangle_14032" data-name="Rectangle 14032" width="37.055" height="32.164" transform="translate(79.257 42.912)" fill="#fff"/>
+        <rect id="Rectangle_14026" data-name="Rectangle 14026" width="37.055" height="32.164" transform="translate(79.257 90.262)" fill="#fff"/>
+      </g>
+      <rect id="Rectangle_14010" data-name="Rectangle 14010" width="39.114" height="62.54" transform="translate(214.111 5335.045)" fill="#fff"/>
+    </g>
+    <rect id="Rectangle_14651" data-name="Rectangle 14651" width="643" height="50.179" transform="translate(-8494 -22764.996)" fill="#797979"/>
+  </g>
+</svg>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>Kit Gráficos Juventudes</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+	<div id="pessoa" style="width:300px; height:450px;"></div>
+	<div id="predio" style="width:450px; height:450px;"></div>
+    <script defer>
+
+    	/*
+			Gráficos feitos utilizando a biblioteca echarts, utilizando o modelo "Pictorial Bar"
+			Exemplos na documentação: 
+				https://echarts.apache.org/examples/en/index.html#chart-type-pictorialBar
+				https://echarts.apache.org/examples/en/editor.html?c=pictorialBar-body-fill
+
+			Abaixo exemplos extraidos da página de "Retrato das juventudes", trocando os dados e referências da plataforma.
+			Utilizamos também a biblioteca lodash para manipulação de variáveis nestes exemplos.
+    	*/
+
+		////////////////////////////////////////////////////////
+		//////////////////// Gráfico Pessoa ////////////////////
+		////////////////////////////////////////////////////////
+		
+		var cornumerolabel = '#C70C14';
+		var cortextolabel = '#132190';
+
+		var definicao = "Distribuição entre Grupos"
+		var valores = {
+			'Grupo A':45,
+			'Grupo B':30,
+			'Grupo C':15,
+		};
+		var simbolos = { //imagens idênticas pintadas nas cores necessárias já
+			'Grupo A':"image://"+"mundrow-idade-full.svg", 
+			'Grupo B':"image://"+"mundrow-idade-60.svg", 
+			'Grupo C':"image://"+"mundrow-idade-30.svg"
+		};
+		var cores = { //apenas para a tooltip
+			'Grupo A':'#C93540', 
+			'Grupo B':'#D65055',
+			'Grupo C':'#EEB6B8'
+		};
+		var total_recorte = _.reduce(valores, function(result,o,i){ return result + o },0);
+
+		var somaPessoa = 0;
+		var optionPessoa = {
+		  	series: _.map(valores, function(o,i){ 
+				var ordem_recorte = _.indexOf(_.keys(valores), i);
+				var perc = o / total_recorte * 100;
+				somaPessoa = somaPessoa + perc;
+				return {
+					'name': i,
+					'data': [{
+						'value':somaPessoa,
+						'value_real':perc,
+						'name':i,
+						'abs':o,
+						'itemStyle': {color: cores[i]},
+						'nomelabel':_.upperCase(i),
+						'valorlabel': perc.toLocaleString('pt-BR', { maximumFractionDigits: 1, minimumFractionDigits: 0 })+'%',
+					}],
+					type: 'pictorialBar',
+					symbol: simbolos[i],
+					symbolBoundingData: 100,
+					symbolClip: true,
+					stack: 'pictorial', 
+					z: 10 - ordem_recorte,
+					barWidth: '66%',
+					symbolOffset: ['-16.66%',0],
+					labelLine: { show: true, lineStyle: {color: "#132190"}, length2: 100 },   
+					label: {
+						show: true, position: ['105%', (100-(somaPessoa-(perc/2)))-0.5-(ordem_recorte==0 ? 2.5 : 0)+'%'], align: 'center',
+						rich: {
+							value: { color: cornumerolabel, fontSize: 10, fontWeight: 'bold', align: 'left', lineHeight: 12, padding: [0, 4],},
+							nome: { color:cortextolabel, fontSize: 8, lineHeight: 10, padding: [0, 4],  align: 'left'} 
+						},
+						formatter: function(param){ return '{value|' + param.data.valorlabel + '}\n{nome|' + param.data.nomelabel + '}'; }, 
+					},
+				}
+			}),
+			grid: {left: '0%',right: '0%',bottom: '2%',top: '0%',containLabel: false}, 
+			yAxis: { type: "value", show: false, min: 0, max: 100, }, 
+		  	xAxis: { 
+				show: false, type: 'category', data: [definicao], 
+				axisTick: { show:false, alignWithLabel: true },  axisLabel: {fontSize: 10}, axisLine: { show: false,},
+			},
+			tooltip: { textStyle: {'fontSize': 12}, trigger: 'axis', axisPointer: {type: 'shadow'}, position: 'top', confine: true, formatter: function(params){
+				var tooltip = "<h4>"+params[0]['axisValue']+"</h4>";
+				var lista = _.reverse(params);
+				_.forEach(lista, function(o){
+					tooltip += "<div>";
+					tooltip += "<i class=\"fa fa-circle\" aria-hidden=\"true\" style=\"color:"+o.color+"\"></i>	";
+					tooltip += "<span>"+o.data.name+"</span>	";
+					tooltip += "<strong>"+o.data.abs+" ("+o.data.valorlabel+")"+"</strong>";
+					tooltip += "</div>";
+				});
+				return tooltip;
+			}},
+		};
+
+        var chartPessoa = document.getElementById('pessoa');
+		var initChartPessoa = echarts.init(chartPessoa);
+		optionPessoa && initChartPessoa.setOption(optionPessoa);
+
+
+
+
+
+		////////////////////////////////////////////////////////
+		//////////////////// Gráfico Prédio ////////////////////
+		////////////////////////////////////////////////////////
+
+		var definicaoPredio = "Distribuição por Área"
+		var valoresPredio = {
+			'Área Urbana':647,
+			'Área Rural':213,
+		};
+		var simbolosPredio = {
+			'Área Urbana':"image://"+"area-urbana.svg", 
+			'Área Rural':"image://"+"area-rural.svg",
+		};
+		var coresPredio = { //apenas para a tooltip
+			'Área Urbana':'#8B8D90', 
+			'Área Rural':'#60BD72',
+		};
+		var total_recortePredio = _.reduce(valoresPredio, function(result,o,i){ return result + o },0);
+
+		var somaPredio = 0;
+		var optionPredio = {
+			series: _.map(valoresPredio, function(o,i){ 
+				var ordem_recorte = _.indexOf(_.keys(valoresPredio), i);
+				var perc = o / total_recortePredio * 100;
+				somaPredio = somaPredio + perc;
+				return {
+					'name': i,
+					'data': [{
+						'value':somaPredio,
+						'value_real':perc,
+						'name':i,
+						'abs':o,
+						'itemStyle': {color: coresPredio[i]},
+						'nomelabel':_.upperCase(i),
+						'valorlabel': perc.toLocaleString('pt-BR', { maximumFractionDigits: 1, minimumFractionDigits: 0 })+'%',
+						label: {position: [((somaPredio-(perc/2)))+'%', '90%']}, 
+					}],
+					type: 'pictorialBar',
+					symbol: simbolosPredio[i],
+					symbolBoundingData: 100,
+					symbolClip: true,
+					stack: 'pictorial',
+					z: 10 - ordem_recorte,
+					barWidth: '100%',
+					label: {
+						show: true, align: (somaPredio-perc) > 90 ? 'right' : 'center',  
+						rich: {
+							value: { color: cornumerolabel, fontSize: 10, fontWeight: 'bold', lineHeight: 12 },
+							nome: { color: cortextolabel, fontSize: 8, lineHeight: 12, } 
+						},
+						formatter: function(param){ return '{value|' + param.data.valorlabel + '}\n{nome|' + param.data.nomelabel + '}'; }, 
+					},
+				}
+			}),
+			grid: {left: '0%',right: '0%',bottom: '2%',top: '0%',containLabel: false}, 
+			xAxis: { type: "value", show: false, min: 0, max: 100, }, 
+		  	yAxis: { 
+				show: false, type: 'category', data: [definicaoPredio], 
+				axisTick: { show:false, alignWithLabel: true },  axisLabel: {fontSize: 10}, axisLine: { show: false,},
+			},
+			tooltip: { textStyle: {'fontSize': 12}, trigger: 'axis', axisPointer: {type: 'shadow'}, position: 'top', confine: true, formatter: function(params){
+				var tooltip = "<h4>"+params[0]['axisValue']+"</h4>";
+				var lista = params;
+				_.forEach(lista, function(o){
+					tooltip += "<div>";
+					tooltip += "<i class=\"fa fa-circle\" aria-hidden=\"true\" style=\"color:"+o.color+"\"></i>	";
+					tooltip += "<span>"+o.data.name+"</span>	";
+					tooltip += "<strong>"+o.data.abs+" ("+o.data.valorlabel+")"+"</strong>";
+					tooltip += "</div>";
+				});
+				return tooltip;
+			}},
+		};
+
+		var chartPredio = document.getElementById('predio');
+		var initChartPredio = echarts.init(chartPredio);
+		optionPredio && initChartPredio.setOption(optionPredio);
+
+
+
+    </script>
+</body>
+
+</html>
